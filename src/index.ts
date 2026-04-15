@@ -9,19 +9,20 @@ const openai = new OpenAI({
 });
 
 async function main() {
-    //testChat()
+    // testChat()
     testToolCall()
 }
 
 main();
 
 async function testChat() {
-    await new ChatOpenAI("deepseek-chat", "you are a teacher").chat("tell me a joke")
+    await new ChatOpenAI(process.env.OPENAI_MODEL_NAME as string, [],"you are a teacher").chat("tell me a joke")
 }
 
 async function testToolCall() {
     const fetchMcp=new MCPClient('fetch','uvx',['mcp-server-fetch'])
     await fetchMcp.init()
     const tools=fetchMcp.getTools()
+    console.log(tools)
     await fetchMcp.close()
 }

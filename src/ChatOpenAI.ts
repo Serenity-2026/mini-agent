@@ -18,12 +18,12 @@ export default class ChatOpenAI {
     private messages: OpenAI.Chat.ChatCompletionMessageParam[] = [];
     private tools: Tool[];
 
-    constructor(model: string, systemPrompt: string = '', tools: Tool[] = [], context: string = '') {
+    constructor(systemPrompt: string = '', tools: Tool[] = [], context: string = '') {
         this.llm = new OpenAI({
             apiKey: process.env.OPENAI_API_KEY,
             baseURL: process.env.OPENAI_BASE_URL,
         });
-        this.model = model;
+        this.model = process.env.OPENAI_MODEL_NAME as string;
         this.tools = tools;
         if (systemPrompt) this.messages.push({ role: "system", content: systemPrompt });
         if (context) this.messages.push({ role: "user", content: context });
