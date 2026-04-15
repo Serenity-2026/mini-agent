@@ -1,5 +1,6 @@
 import OpenAI from "openai";
 import dotenv from 'dotenv';
+import ChatOpenAI from "./ChatOpenAI";
 dotenv.config();
 console.log(process.env.OPENAI_API_KEY)
 const openai = new OpenAI({
@@ -8,12 +9,7 @@ const openai = new OpenAI({
 });
 
 async function main() {
-    const completion = await openai.chat.completions.create({
-        messages: [{ role: "system", content: "You are a helpful assistant." }],
-        model: "deepseek-chat",
-    });
-
-    console.log(completion.choices[0].message.content);
+    await new ChatOpenAI("deepseek-chat", "you are a teacher").chat("tell me a joke")
 }
 
 main();
